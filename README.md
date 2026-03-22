@@ -20,10 +20,10 @@ which slows learning and produces policies that are difficult to interpret.
 This project explores a hierarchical decomposition that separates the two cleanly:
 
 - A **PD controller** runs at the physics rate and is responsible for all continuous
-  dynamics — tracking a commanded velocity and heading via forces and torques applied
+  dynamics, tracking a commanded velocity and heading via forces and torques applied
   to the rigid body.
 - An **RL policy** runs once per footfall and is responsible for all discrete gait
-  decisions — which of the three stance legs to retire and where to place the next
+  decisions, which of the three stance legs to retire and where to place the next
   foot.
 
 The policy never needs to learn dynamics. It only needs to learn geometry: how to
@@ -40,7 +40,7 @@ contact.
 
 **Stance mechanics.** Each grounded foot is anchored to the world via a spring-damper
 (K = 500 N/m, D = 30 N·s/m). The natural frequency is ωₙ ≈ 15.8 rad/s with a
-damping ratio ζ ≈ 0.47 — slightly under-damped, which keeps the body responsive
+damping ratio ζ ≈ 0.47 : slightly under-damped, which keeps the body responsive
 without oscillation. The spring displacement is zero when the body is exactly above
 the foot anchor; any translation or rotation creates restoring force and torque.
 This means the stance triangle passively resists perturbations with no active leg
@@ -93,7 +93,7 @@ would immediately become unstable. These three scalars are computed analytically
 included directly in the 17-dimensional observation vector.
 
 This makes the retire decision interpretable: the policy can learn to associate
-large positive margins with safe choices and avoid negative margins — and the
+large positive margins with safe choices and avoid negative margins, and the
 post-decision reward directly reinforces this via the margin of the chosen triangle.
 A hard safety override in the C++ runtime rejects any choice with a negative margin,
 guaranteeing physical feasibility even from a suboptimal policy.
@@ -120,7 +120,7 @@ heading-invariant) and normalised by the maximum leg reach R ≈ 1.47 m.
 
 | Elements | Meaning |
 |---|---|
-| `r0, r1, r2` | Retire logits — argmax selects which stance leg to lift |
+| `r0, r1, r2` | Retire logits : argmax selects which stance leg to lift |
 | `tx, ty` | Foot placement offset within the idle leg's zone (unit disc) |
 
 ---
